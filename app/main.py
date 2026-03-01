@@ -23,6 +23,9 @@ origins = [
     "http://localhost:5173",  # Frontend Vite
     "http://localhost:3000",  # React padrão (caso use)
     "http://127.0.0.1:5173",
+    "http://financas",        # Acesso local via alias
+    "http://financas:80",
+    "http://localhost",
 ]
 
 app.add_middleware(

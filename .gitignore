@@ -43,6 +43,7 @@ yarn-error.log
 
 # Logs
 *.log
+log.txt
 
 # Temp
 tmp/
