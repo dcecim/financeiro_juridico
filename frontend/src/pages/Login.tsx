@@ -45,45 +45,45 @@ export const Login = () => {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-md w-96">
+    <div className="min-h-screen flex items-center justify-center bg-[var(--color-bg-main)] transition-colors duration-300">
+      <div className="bg-[var(--color-bg-paper)] p-8 rounded-lg shadow-md w-96 border border-[var(--color-border)]">
         <div className="flex justify-center mb-6">
-          <ShieldCheck className="w-12 h-12 text-blue-600" />
+          <ShieldCheck className="w-12 h-12 text-[var(--color-primary)]" />
         </div>
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Acesso ao Sistema</h2>
-        {error && <div className={`mb-4 text-sm text-center p-2 rounded ${error.includes('necessária') ? 'bg-yellow-50 text-yellow-700' : 'bg-red-50 text-red-700'}`}>{error}</div>}
+        <h2 className="text-2xl font-bold text-center text-[var(--color-text-main)] mb-6">Acesso ao Sistema</h2>
+        {error && <div className={`mb-4 text-sm text-center p-2 rounded ${error.includes('necessária') ? 'bg-[var(--color-warning)]/10 text-[var(--color-warning)]' : 'bg-[var(--color-danger)]/10 text-[var(--color-danger)]'}`}>{error}</div>}
         
         <form className="space-y-4" onSubmit={handleLogin}>
           {!show2FA ? (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Email</label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <User className="h-5 w-5 text-gray-400" />
+                    <User className="h-5 w-5 text-[var(--color-text-muted)]" />
                   </div>
                   <input
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md p-2 border"
+                    className="focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] block w-full pl-10 sm:text-sm border-[var(--color-border)] rounded-md p-2 border bg-[var(--color-bg-main)] text-[var(--color-text-main)] placeholder-[var(--color-text-muted)]"
                     placeholder="seu@email.com"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Senha</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Senha</label>
                 <div className="mt-1 relative rounded-md shadow-sm">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Lock className="h-5 w-5 text-gray-400" />
+                    <Lock className="h-5 w-5 text-[var(--color-text-muted)]" />
                   </div>
                   <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
-                    className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md p-2 border"
+                    className="focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] block w-full pl-10 sm:text-sm border-[var(--color-border)] rounded-md p-2 border bg-[var(--color-bg-main)] text-[var(--color-text-main)] placeholder-[var(--color-text-muted)]"
                     placeholder="••••••••"
                   />
                 </div>
@@ -91,22 +91,22 @@ export const Login = () => {
             </>
           ) : (
             <div>
-              <label className="block text-sm font-medium text-gray-700">Código 2FA</label>
+              <label className="block text-sm font-medium text-[var(--color-text-main)]">Código 2FA</label>
               <div className="mt-1 relative rounded-md shadow-sm">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <KeyRound className="h-5 w-5 text-gray-400" />
+                  <KeyRound className="h-5 w-5 text-[var(--color-text-muted)]" />
                 </div>
                 <input
                   type="text"
                   value={otpCode}
                   onChange={(e) => setOtpCode(e.target.value)}
                   required
-                  className="focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md p-2 border"
+                  className="focus:ring-[var(--color-primary)] focus:border-[var(--color-primary)] block w-full pl-10 sm:text-sm border-[var(--color-border)] rounded-md p-2 border bg-[var(--color-bg-main)] text-[var(--color-text-main)] placeholder-[var(--color-text-muted)]"
                   placeholder="000000"
                   autoFocus
                 />
               </div>
-              <p className="mt-2 text-xs text-gray-500 text-center">
+              <p className="mt-2 text-xs text-[var(--color-text-muted)] text-center">
                 Abra seu aplicativo autenticador e digite o código de 6 dígitos.
               </p>
             </div>
@@ -115,7 +115,7 @@ export const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-[var(--color-primary-foreground)] bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--color-primary)] disabled:opacity-50 transition-colors"
           >
             {loading ? 'Entrando...' : (show2FA ? 'Confirmar' : 'Entrar')}
           </button>
@@ -124,7 +124,7 @@ export const Login = () => {
             <button
               type="button"
               onClick={() => { setShow2FA(false); setOtpCode(''); setError(''); }}
-              className="w-full text-center text-sm text-blue-600 hover:text-blue-500"
+              className="w-full text-center text-sm text-[var(--color-primary)] hover:text-[var(--color-primary-hover)]"
             >
               Voltar para login
             </button>

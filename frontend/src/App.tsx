@@ -1,5 +1,7 @@
+import { ReactElement } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from './contexts/AuthContext'
+import { ThemeProvider } from './contexts/ThemeContext'
 import { Login } from './pages/Login'
 import { Dashboard } from './pages/Dashboard'
 import { Processos } from './pages/Processos'
@@ -9,7 +11,7 @@ import CentrosCusto from './pages/CentrosCusto'
 import { PrivateRoute } from './components/PrivateRoute'
 
 // Componente para redirecionar se já estiver logado
-const PublicRoute = ({ children }: { children: JSX.Element }) => {
+const PublicRoute = ({ children }: { children: ReactElement }) => {
   const { isAuthenticated, isLoading } = useAuth();
   
   if (isLoading) {
@@ -22,8 +24,9 @@ const PublicRoute = ({ children }: { children: JSX.Element }) => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
-        <Routes>
+      <ThemeProvider>
+        <Router>
+          <Routes>
           <Route 
             path="/login" 
             element={
@@ -43,7 +46,8 @@ function App() {
           
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-      </Router>
+        </Router>
+      </ThemeProvider>
     </AuthProvider>
   )
 }

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Filter, X, Search } from 'lucide-react';
+import { Filter, Search, X } from 'lucide-react';
 import { centrosCustoService } from '../services/centrosCusto';
 import { StatusProcesso } from '../services/types';
 
@@ -57,15 +57,15 @@ export const DashboardFilters = ({ initialFilters, onFilterChange }: DashboardFi
   };
 
   return (
-    <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100 mb-6">
+    <div className="bg-[var(--color-bg-paper)] p-4 rounded-lg shadow-sm border border-[var(--color-border)] mb-6 transition-colors duration-300">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-700 flex items-center gap-2">
+        <h3 className="font-semibold text-[var(--color-text-main)] flex items-center gap-2">
           <Filter size={20} />
           Filtros de Análise
         </h3>
         <button 
           onClick={() => setIsOpen(!isOpen)}
-          className="text-blue-600 text-sm hover:underline md:hidden"
+          className="text-[var(--color-primary)] text-sm hover:underline md:hidden"
         >
           {isOpen ? 'Ocultar' : 'Expandir'}
         </button>
@@ -73,29 +73,29 @@ export const DashboardFilters = ({ initialFilters, onFilterChange }: DashboardFi
 
       <div className={`grid grid-cols-1 md:grid-cols-5 gap-4 items-end ${isOpen ? 'block' : 'hidden md:grid'}`}>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Período (Início)</label>
+          <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-1">Período (Início)</label>
           <input
             type="date"
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+            className="w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
             value={filters.data_inicio}
             onChange={e => setFilters({ ...filters, data_inicio: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Período (Fim)</label>
+          <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-1">Período (Fim)</label>
           <input
             type="date"
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+            className="w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
             value={filters.data_fim}
             onChange={e => setFilters({ ...filters, data_fim: e.target.value })}
           />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Status do Processo</label>
+          <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-1">Status do Processo</label>
           <select
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+            className="w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
             value={filters.status_processo}
             onChange={e => setFilters({ ...filters, status_processo: e.target.value as StatusProcesso })}
           >
@@ -108,9 +108,9 @@ export const DashboardFilters = ({ initialFilters, onFilterChange }: DashboardFi
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Centro de Custo</label>
+          <label className="block text-sm font-medium text-[var(--color-text-muted)] mb-1">Centro de Custo</label>
           <select
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+            className="w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
             value={filters.centro_custo_id}
             onChange={e => setFilters({ ...filters, centro_custo_id: e.target.value })}
           >
@@ -124,7 +124,7 @@ export const DashboardFilters = ({ initialFilters, onFilterChange }: DashboardFi
         <div className="flex gap-2">
           <button
             onClick={handleSearch}
-            className="flex-1 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2"
+            className="flex-1 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] px-4 py-2 rounded-md hover:bg-[var(--color-primary-hover)] flex items-center justify-center gap-2 transition-colors"
           >
             <Search size={16} />
             Filtrar
@@ -132,7 +132,7 @@ export const DashboardFilters = ({ initialFilters, onFilterChange }: DashboardFi
           
           <button
             onClick={clearFilters}
-            className="px-3 py-2 text-gray-600 hover:text-gray-800 border border-gray-300 rounded-md hover:bg-gray-50"
+            className="px-3 py-2 text-[var(--color-text-muted)] hover:text-[var(--color-text-main)] border border-[var(--color-border)] rounded-md hover:bg-[var(--color-bg-main)] transition-colors"
             title="Limpar Filtros"
           >
             <X size={16} />

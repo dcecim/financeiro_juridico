@@ -97,13 +97,13 @@ export const Participantes = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-          <Users className="text-blue-600" />
+        <h1 className="text-2xl font-bold text-[var(--color-text-main)] flex items-center gap-2">
+          <Users className="text-[var(--color-primary)]" />
           Participantes
         </h1>
         <button
           onClick={() => { resetForm(); setIsModalOpen(true); }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700"
+          className="bg-[var(--color-primary)] text-[var(--color-primary-foreground)] px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[var(--color-primary-hover)] transition-colors"
         >
           <Plus size={20} />
           Novo Participante
@@ -111,60 +111,60 @@ export const Participantes = () => {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={20} />
         <input
           type="text"
           placeholder="Buscar por nome, documento ou email..."
-          className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full pl-10 pr-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] bg-[var(--color-bg-paper)] text-[var(--color-text-main)] placeholder-[var(--color-text-muted)] transition-colors"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
 
       {isLoading ? (
-        <div className="text-center py-8">Carregando...</div>
+        <div className="text-center py-8 text-[var(--color-text-muted)]">Carregando...</div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredParticipantes?.map((participante) => (
-            <div key={participante.id} className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
+            <div key={participante.id} className="bg-[var(--color-bg-paper)] rounded-lg shadow p-6 hover:shadow-md transition-all border border-[var(--color-border)]">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">{participante.nome}</h3>
-                  <span className={`text-xs px-2 py-1 rounded-full font-medium
-                    ${participante.tipo === 'CLIENTE' ? 'bg-green-100 text-green-800' : 
-                      participante.tipo === 'FORNECEDOR' ? 'bg-purple-100 text-purple-800' : 
-                      'bg-blue-100 text-blue-800'}`}>
+                  <h3 className="text-lg font-semibold text-[var(--color-text-main)]">{participante.nome}</h3>
+                  <span className={`text-xs px-2 py-1 rounded-full font-medium inline-block mt-1
+                    ${participante.tipo === 'CLIENTE' ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 
+                      participante.tipo === 'FORNECEDOR' ? 'bg-[var(--color-secondary)]/10 text-[var(--color-secondary)]' : 
+                      'bg-[var(--color-primary)]/10 text-[var(--color-primary)]'}`}>
                     {participante.tipo}
                   </span>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => handleEdit(participante)} className="text-gray-400 hover:text-blue-600">
+                  <button onClick={() => handleEdit(participante)} className="text-[var(--color-text-muted)] hover:text-[var(--color-primary)] transition-colors">
                     <Edit size={18} />
                   </button>
-                  <button onClick={() => handleDelete(participante.id)} className="text-gray-400 hover:text-red-600">
+                  <button onClick={() => handleDelete(participante.id)} className="text-[var(--color-text-muted)] hover:text-[var(--color-danger)] transition-colors">
                     <Trash2 size={18} />
                   </button>
                 </div>
               </div>
               
-              <div className="space-y-2 text-sm text-gray-600">
+              <div className="space-y-2 text-sm text-[var(--color-text-secondary)]">
                 {participante.documento && (
                   <div className="flex items-center gap-2">
-                    <FileText size={16} />
+                    <FileText size={16} className="text-[var(--color-text-muted)]" />
                     <span>{participante.documento}</span>
                   </div>
                 )}
                 {participante.email && (
                   <div className="flex items-center gap-2">
-                    <Mail size={16} />
-                    <a href={`mailto:${participante.email}`} className="hover:text-blue-600">
+                    <Mail size={16} className="text-[var(--color-text-muted)]" />
+                    <a href={`mailto:${participante.email}`} className="hover:text-[var(--color-primary)] transition-colors">
                       {participante.email}
                     </a>
                   </div>
                 )}
                 {participante.telefone && (
                   <div className="flex items-center gap-2">
-                    <Phone size={16} />
+                    <Phone size={16} className="text-[var(--color-text-muted)]" />
                     <span>{participante.telefone}</span>
                   </div>
                 )}
@@ -176,57 +176,57 @@ export const Participantes = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-md">
-            <div className="p-6 border-b">
-              <h2 className="text-xl font-bold">{editingParticipante ? 'Editar Participante' : 'Novo Participante'}</h2>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50 backdrop-blur-sm">
+          <div className="bg-[var(--color-bg-paper)] rounded-lg shadow-xl w-full max-w-md border border-[var(--color-border)]">
+            <div className="p-6 border-b border-[var(--color-border)]">
+              <h2 className="text-xl font-bold text-[var(--color-text-main)]">{editingParticipante ? 'Editar Participante' : 'Novo Participante'}</h2>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Nome</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Nome</label>
                 <input
                   type="text"
                   required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
                   value={formData.nome}
                   onChange={e => setFormData({...formData, nome: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Documento (CPF/CNPJ)</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Documento (CPF/CNPJ)</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
                   value={formData.documento}
                   onChange={e => setFormData({...formData, documento: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Email</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Email</label>
                 <input
                   type="email"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
                   value={formData.email}
                   onChange={e => setFormData({...formData, email: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Telefone</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Telefone</label>
                 <input
                   type="tel"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
                   value={formData.telefone}
                   onChange={e => setFormData({...formData, telefone: e.target.value})}
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Tipo</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Tipo</label>
                 <select
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2 bg-[var(--color-bg-main)] text-[var(--color-text-main)]"
                   value={formData.tipo}
                   onChange={e => setFormData({...formData, tipo: e.target.value as any})}
                 >
@@ -240,13 +240,13 @@ export const Participantes = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-[var(--color-border)] rounded-md text-[var(--color-text-main)] hover:bg-[var(--color-bg-main)] transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded-md hover:bg-[var(--color-primary-hover)] transition-colors"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
                   {createMutation.isPending || updateMutation.isPending ? 'Salvando...' : 'Salvar'}

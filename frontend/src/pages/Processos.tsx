@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { processosService } from '../services/processos';
 import { participantesService } from '../services/participantes';
-import { Processo, ProcessoCreate, StatusProcesso, Participante } from '../services/types';
-import { Plus, Search, Edit, Trash2, FileText, DollarSign } from 'lucide-react';
+import { Processo, ProcessoCreate, StatusProcesso } from '../services/types';
+import { Plus, Search, Edit, Trash2 } from 'lucide-react';
 import { ParticipanteModal } from '../components/ParticipanteModal';
 
 export const Processos = () => {
@@ -26,9 +26,6 @@ export const Processos = () => {
 
   if (error) {
     console.error("Error fetching processos:", error);
-  }
-  if (processos) {
-    console.log("Processos loaded:", processos);
   }
 
   const createMutation = useMutation({
@@ -122,23 +119,23 @@ export const Processos = () => {
   return (
     <div className="space-y-6">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900">Processos</h1>
+        <h1 className="text-2xl font-bold text-[var(--color-text-main)]">Processos</h1>
         <button
           onClick={() => { resetForm(); setIsModalOpen(true); }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-blue-700"
+          className="bg-[var(--color-primary)] text-[var(--color-primary-foreground)] px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-[var(--color-primary-hover)] transition-colors"
         >
           <Plus size={20} />
           Novo Processo
         </button>
       </div>
 
-      <div className="bg-white p-4 rounded-lg shadow flex gap-4">
+      <div className="bg-[var(--color-bg-paper)] p-4 rounded-lg shadow flex gap-4 border border-[var(--color-border)] transition-colors duration-300">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[var(--color-text-muted)]" size={20} />
           <input
             type="text"
             placeholder="Buscar por número, título ou cliente..."
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full pl-10 pr-4 py-2 border border-[var(--color-border)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] placeholder-[var(--color-text-muted)]"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -146,48 +143,48 @@ export const Processos = () => {
       </div>
 
       {isLoading ? (
-        <div className="text-center py-8">Carregando...</div>
+        <div className="text-center py-8 text-[var(--color-text-muted)]">Carregando...</div>
       ) : error ? (
-        <div className="text-center py-8 text-red-600">Erro ao carregar processos: {(error as any).message}</div>
+        <div className="text-center py-8 text-[var(--color-danger)]">Erro ao carregar processos: {(error as any).message}</div>
       ) : (
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
+        <div className="bg-[var(--color-bg-paper)] rounded-lg shadow overflow-hidden border border-[var(--color-border)] transition-colors duration-300">
+          <table className="min-w-full divide-y divide-[var(--color-border)]">
+            <thead className="bg-[var(--color-bg-main)]">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Número / Título</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cliente</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valores</th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Número / Título</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Cliente</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Status</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Valores</th>
+                <th className="px-6 py-3 text-right text-xs font-medium text-[var(--color-text-muted)] uppercase tracking-wider">Ações</th>
               </tr>
             </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
+            <tbody className="bg-[var(--color-bg-paper)] divide-y divide-[var(--color-border)]">
               {filteredProcessos?.map((processo) => (
-                <tr key={processo.id} className="hover:bg-gray-50">
+                <tr key={processo.id} className="hover:bg-[var(--color-bg-main)]/50 transition-colors">
                   <td className="px-6 py-4">
-                    <div className="text-sm font-medium text-gray-900">{processo.numero}</div>
-                    <div className="text-sm text-gray-500">{processo.titulo_causa}</div>
+                    <div className="text-sm font-medium text-[var(--color-text-main)]">{processo.numero}</div>
+                    <div className="text-sm text-[var(--color-text-muted)]">{processo.titulo_causa}</div>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-[var(--color-text-muted)]">
                     {processo.cliente?.nome || 'N/A'}
                   </td>
                   <td className="px-6 py-4">
                     <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                      ${processo.status === StatusProcesso.ATIVO ? 'bg-green-100 text-green-800' : 
-                        processo.status === StatusProcesso.ENCERRADO ? 'bg-gray-100 text-gray-800' : 
-                        'bg-yellow-100 text-yellow-800'}`}>
+                      ${processo.status === StatusProcesso.ATIVO ? 'bg-[var(--color-success)]/10 text-[var(--color-success)]' : 
+                        processo.status === StatusProcesso.ENCERRADO ? 'bg-[var(--color-text-muted)]/10 text-[var(--color-text-muted)]' : 
+                        'bg-[var(--color-warning)]/10 text-[var(--color-warning)]'}`}>
                       {processo.status}
                     </span>
                   </td>
-                  <td className="px-6 py-4 text-sm text-gray-500">
+                  <td className="px-6 py-4 text-sm text-[var(--color-text-muted)]">
                     <div>Estimado: R$ {Number(processo.valor_causa_estimado || 0).toFixed(2)}</div>
                     <div>Êxito: {Number(processo.percentual_exito || 0).toFixed(2)}%</div>
                   </td>
                   <td className="px-6 py-4 text-right text-sm font-medium">
-                    <button onClick={() => handleEdit(processo)} className="text-blue-600 hover:text-blue-900 mr-4">
+                    <button onClick={() => handleEdit(processo)} className="text-[var(--color-primary)] hover:text-[var(--color-primary-hover)] mr-4 transition-colors">
                       <Edit size={18} />
                     </button>
-                    <button onClick={() => handleDelete(processo.id)} className="text-red-600 hover:text-red-900">
+                    <button onClick={() => handleDelete(processo.id)} className="text-[var(--color-danger)] hover:text-red-700 transition-colors">
                       <Trash2 size={18} />
                     </button>
                   </td>
@@ -200,28 +197,28 @@ export const Processos = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b">
-              <h2 className="text-xl font-bold">{editingProcesso ? 'Editar Processo' : 'Novo Processo'}</h2>
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-[var(--color-bg-paper)] rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto border border-[var(--color-border)]">
+            <div className="p-6 border-b border-[var(--color-border)]">
+              <h2 className="text-xl font-bold text-[var(--color-text-main)]">{editingProcesso ? 'Editar Processo' : 'Novo Processo'}</h2>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Número do Processo</label>
+                  <label className="block text-sm font-medium text-[var(--color-text-main)]">Número do Processo</label>
                   <input
                     type="text"
                     required
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.numero}
                     onChange={e => setFormData({...formData, numero: e.target.value})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Título da Causa</label>
+                  <label className="block text-sm font-medium text-[var(--color-text-main)]">Título da Causa</label>
                   <input
                     type="text"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.titulo_causa || ''}
                     onChange={e => setFormData({...formData, titulo_causa: e.target.value})}
                   />
@@ -229,11 +226,11 @@ export const Processos = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Cliente</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Cliente</label>
                 <div className="flex gap-2">
                   <select
                     required
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.cliente_id}
                     onChange={e => setFormData({...formData, cliente_id: e.target.value})}
                   >
@@ -245,7 +242,7 @@ export const Processos = () => {
                   <button
                     type="button"
                     onClick={() => setIsParticipanteModalOpen(true)}
-                    className="mt-1 px-3 bg-green-600 text-white rounded-md hover:bg-green-700 flex items-center justify-center"
+                    className="mt-1 px-3 bg-[var(--color-success)] text-white rounded-md hover:bg-[var(--color-success)]/90 flex items-center justify-center transition-colors"
                     title="Novo Cliente"
                   >
                     <Plus size={20} />
@@ -254,9 +251,9 @@ export const Processos = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Descrição</label>
+                <label className="block text-sm font-medium text-[var(--color-text-main)]">Descrição</label>
                 <textarea
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                  className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                   rows={3}
                   value={formData.descricao || ''}
                   onChange={e => setFormData({...formData, descricao: e.target.value})}
@@ -265,29 +262,29 @@ export const Processos = () => {
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Valor Estimado (R$)</label>
+                  <label className="block text-sm font-medium text-[var(--color-text-main)]">Valor Estimado (R$)</label>
                   <input
                     type="number"
                     step="0.01"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.valor_causa_estimado || 0}
                     onChange={e => setFormData({...formData, valor_causa_estimado: parseFloat(e.target.value)})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">% Êxito</label>
+                  <label className="block text-sm font-medium text-[var(--color-text-main)]">% Êxito</label>
                   <input
                     type="number"
                     step="0.1"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.percentual_exito || 0}
                     onChange={e => setFormData({...formData, percentual_exito: parseFloat(e.target.value)})}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Status</label>
+                  <label className="block text-sm font-medium text-[var(--color-text-main)]">Status</label>
                   <select
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 border p-2"
+                    className="mt-1 block w-full rounded-md border-[var(--color-border)] bg-[var(--color-bg-main)] text-[var(--color-text-main)] shadow-sm focus:border-[var(--color-primary)] focus:ring-[var(--color-primary)] border p-2"
                     value={formData.status}
                     onChange={e => setFormData({...formData, status: e.target.value as StatusProcesso})}
                   >
@@ -302,13 +299,13 @@ export const Processos = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                  className="px-4 py-2 border border-[var(--color-border)] rounded-md text-[var(--color-text-main)] hover:bg-[var(--color-bg-main)] transition-colors"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                  className="px-4 py-2 bg-[var(--color-primary)] text-[var(--color-primary-foreground)] rounded-md hover:bg-[var(--color-primary-hover)] transition-colors"
                   disabled={createMutation.isPending || updateMutation.isPending}
                 >
                   {createMutation.isPending || updateMutation.isPending ? 'Salvando...' : 'Salvar'}
